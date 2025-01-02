@@ -30,8 +30,37 @@ jobs:
         
       - name: Build
         run: pnpm build
+
+      - name: Check if the package is already published
+        run: |
+          npm view @crawlab/sdk version
+          if [ $? -eq 0 ]; then
+            echo "Package is already published"
+            exit 0
+          fi
+        
+      - name: Check package version
+        id: check-version
+        run: |
+          # Get the latest published version
+          LATEST_VERSION=$(pnpm view @crawlab/sdk version || echo "0.0.0")
+          
+          # Get the current version from package.json
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          
+          echo "Latest version: $LATEST_VERSION"
+          echo "Current version: $CURRENT_VERSION"
+          
+          # Compare versions (using node for proper semver comparison)
+          if node -e "process.exit(require('semver').gt('$CURRENT_VERSION', '$LATEST_VERSION') ? 0 : 1)"; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "Current version is not higher than latest version. Skipping publish."
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          fi
         
       - name: Publish to NPM
+        if: steps.check-version.outputs.should_publish == 'true'
         run: pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
