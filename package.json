@@ -1,6 +1,6 @@
 {
   "name": "@crawlab/sdk",
-  "version": "0.7.0-rc2",
+  "version": "0.7.0-rc3",
   "scripts": {
     "build": "tsc",
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
@@ -23,6 +23,7 @@
   },
   "files": [
     "dist",
+    "LICENSE",
     "README.md"
   ]
 }
