@@ -5,7 +5,7 @@
     "build": "tsc",
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "test": "jest",
-    "prepare": "npm run build"
+    "prepare": "pnpm run build"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
