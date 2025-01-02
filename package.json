@@ -1,6 +1,7 @@
 {
   "name": "@crawlab/sdk",
-  "version": "0.7.0-rc3",
+  "version": "0.7.0-rc4",
+  "keywords": ["crawlab", "sdk", "web", "crawler"],
   "scripts": {
     "build": "tsc",
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
