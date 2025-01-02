@@ -22,13 +22,6 @@ jobs:
         with:
           version: latest
       
-      - name: Configure npm
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
-          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       
